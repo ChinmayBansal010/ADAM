@@ -1,0 +1,154 @@
+{
+    "intents": [
+        {
+            "tag": "greeting",
+            "patterns": [
+                "Hi",
+                "Hey",
+                "How are you",
+                "Is anyone there?",
+                "Hello",
+                "Good day",
+                "What's up?",
+                "Howdy",
+                "Yo",
+                "Greetings",
+                "What's going on?",
+                "How's it going?"
+            ],
+            "responses": [
+                "Hey :-)",
+                "Hello, thanks for visiting sir",
+                "Hi sir, what can I do for you?",
+                "Hi sir, how can I help?",
+                "Greetings! How's it going?",
+                "Howdy! What can I assist you with today sir?",
+                "Sir! What can I do for you?",
+                "What's up? How can I help?",
+                "Hello sir! Need anything?",
+                "How’s everything going sir?"
+            ]
+        },          
+        {
+            "tag": "goodbye",
+            "patterns": [
+                "Bye", 
+                "See you later", 
+                "Goodbye", 
+                "Take care", 
+                "See you soon", 
+                "Catch you later", 
+                "Farewell", 
+                "Until next time", 
+                "Later", 
+                "I'm leaving now"
+            ],
+            "responses": [
+                "See you later, thanks for visiting sir",
+                "Have a nice days sir",
+                "Bye! Come back again soon.",
+                "Take care! See you soon sir.",
+                "Until next time sir, stay safe!",
+                "It was nice talking to you sir, goodbye!",
+                "Catch you later sir! Take care.",
+                "Farewell sir, have a great day ahead!",
+                "See you soon sir, take care!",
+                "Goodbye sir! Don't be a stranger."
+        ]
+        },
+        {
+            "tag": "open_calculator",
+            "patterns": ["open calculator", "start calculator", "launch calculator"],
+            "responses": ["Opening calculator..."]
+        },
+        {
+            "tag": "open_browser",
+            "patterns": ["open browser", "launch chrome", "start web browser", "open google"],
+            "responses": ["Opening browser..."]
+        },
+        {
+            "tag": "open_notepad",
+            "patterns": ["open notepad", "start notepad", "launch text editor"],
+            "responses": ["Opening Notepad..."]
+        },
+        {
+            "tag": "tell_time",
+            "patterns": ["what time is it", "tell me the time", "current time", "time now"],
+            "responses": ["Checking the current time..."]
+        },
+        {
+            "tag": "open_youtube",
+            "patterns": ["open youtube", "play youtube", "start youtube"],
+            "responses": ["Opening YouTube..."]
+        },
+        {
+            "tag": "search_google",
+            "patterns": ["search google for", "google", "search for", "search", "find on google" , "google search for", "google search"],
+            "responses": ["Searching Google..."]
+        },     
+        {
+            "tag": "thanks",
+            "patterns": [
+                "Thanks",
+                "Thank you",
+                "That's helpful",
+                "Thank's a lot!",
+                "Thanks a ton",
+                "Many thanks",
+                "I appreciate it",
+                "Thanks so much",
+                "Thanks a million",
+                "You're awesome, thank you"
+            ],
+            "responses": [
+                "Happy to help sir!",
+                "Any time sir!",
+                "My pleasure sir",
+                "You're welcome sir!",
+                "Glad I could assist sir!",
+                "No problem at all sir!",
+                "I'm happy you found it helpful sir!",
+                "It was my pleasure sir!",
+                "You're very welcome sir!",
+                "Anytime, glad to be of help sir!"
+            ]
+        },
+        {
+            "tag": "items",
+            "patterns": [
+            "Which items do you have?",
+            "What kinds of items are there?",
+            "What do you sell?"
+            ],
+            "responses": [
+            "We sell coffee and tea",
+            "We have coffee and tea"
+            ]
+        },
+        {
+            "tag": "funny",
+            "patterns": [
+                "Tell me a joke!",
+                "Tell me something funny!",
+                "Do you know a joke?",
+                "Make me laugh!",
+                "Tell me a funny story",
+                "I need a laugh",
+                "Say something funny",
+                "Got any jokes?"
+            ],
+            "responses": [
+                "Why did the hipster burn his mouth? He drank the coffee before it was cool.",
+                "What did the buffalo say when his son left for college? Bison.",
+                "Why don’t skeletons fight each other? They don’t have the guts.",
+                "What’s orange and sounds like a parrot? A carrot!",
+                "Why can’t you hear a pterodactyl go to the bathroom? Because the ‘P’ is silent.",
+                "I told my wife she was drawing her eyebrows too high. She looked surprised.",
+                "Why did the scarecrow win an award? Because he was outstanding in his field.",
+                "What do you call fake spaghetti? An impasta!",
+                "How do you organize a space party? You planet!",
+                "Why don't eggs tell jokes? They might crack up."
+            ]
+        }          
+    ]
+}
