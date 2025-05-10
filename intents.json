@@ -335,6 +335,32 @@
             "responses": [
                 "Searching Google..."
             ]
+        },
+        {
+            "tag": "math_operation",
+            "patterns": [
+                "what is 2.5 plus 3.1",
+                "calculate 4.2 times 3.5",
+                "what is 10.0 minus 4.5",
+                "can you add 7.75 and 8.25",
+                "multiply 1.5 and 2.5",
+                "divide 5.5 by 2.2",
+                "what is 25 percent of 200",
+                "calculate 40% of 150",
+                "what’s 15% off 300",
+                "how much is 75% of 80",
+                "add 3.14 and 2.86",
+                "what is 7.2 divided by 1.8",
+                "how do you calculate 60% of 500",
+                "give me 5 percent of 240",
+                "find 10% of 1000",
+                "calculate the discount of 20% on 250",
+                "what is 2.75 plus 6.25",
+                "how much is 9.9 minus 4.4",
+                "can you do 6.6 times 2.2",
+                "divide 12.5 by 0.5"
+            ],
+            "responses": ["Here's the result:"]
         },     
         {
             "tag": "thanks",

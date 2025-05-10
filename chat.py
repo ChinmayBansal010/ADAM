@@ -55,7 +55,7 @@ def speak():
         text = speech_queue.get()
         if text is None:
             break
-        engine.say(text)
+        engine.say(str(text))
         engine.runAndWait()
         speech_queue.task_done()
 
@@ -78,6 +78,85 @@ def get_response(msg):
                 return random.choice(intent['responses']), tag
     else:
         return "I do not understand...", None
+
+def math_operation(user_input):
+    user_input = user_input.lower()
+    result = None
+
+    # Split the input into multiple parts based on common operation words
+    operations = ['add', 'plus', 'subtract', 'minus', 'multiply', 'times', 'divide', 'divided', 'sum', 'difference', 'product']
+    parts = []
+    for op in operations:
+        if op in user_input:
+            parts.extend(user_input.split(op))
+
+    # Now process each part separately
+    for part in parts:
+        part = part.strip()
+
+        # Handle "add 20 and 30" or "the sum of 20 and 30"
+        if 'add' in part or 'plus' in part or 'sum' in part:
+            try:
+                numbers = [float(num) for num in part.split() if num.replace('.', '', 1).isdigit()]
+                if len(numbers) == 2:
+                    if result is None:
+                        result = numbers[0] + numbers[1]
+                    else:
+                        result += numbers[1]
+            except:
+                pass
+        
+        # Handle "subtract 40 and 50" or "difference between 40 and 50"
+        elif 'subtract' in part or 'minus' in part or 'difference' in part:
+            try:
+                numbers = [float(num) for num in part.split() if num.replace('.', '', 1).isdigit()]
+                if len(numbers) == 2:
+                    if result is None:
+                        result = numbers[0] - numbers[1]
+                    else:
+                        result -= numbers[1]
+            except:
+                pass
+
+        # Handle "multiply 5 and 7" or "product of 5 and 7"
+        elif 'multiply' in part or 'times' in part or 'product' in part:
+            try:
+                numbers = [float(num) for num in part.split() if num.replace('.', '', 1).isdigit()]
+                if len(numbers) == 2:
+                    if result is None:
+                        result = numbers[0] * numbers[1]
+                    else:
+                        result *= numbers[1]
+            except:
+                pass
+
+        # Handle "divide 40 by 5" or "divide 20 and 5"
+        elif 'divide' in part or 'divided' in part:
+            try:
+                numbers = [float(num) for num in part.split() if num.replace('.', '', 1).isdigit()]
+                if len(numbers) == 2 and numbers[1] != 0:
+                    if result is None:
+                        result = numbers[0] / numbers[1]
+                    else:
+                        result /= numbers[1]
+                elif numbers[1] == 0:
+                    result = "Cannot divide by zero."
+            except:
+                pass
+
+        # Fallback for more complex expressions
+        try:
+            # Try parsing mathematical expressions like "20 + 30"
+            expr = part.replace('plus', '+').replace('minus', '-').replace('times', '*').replace('divided', '/')
+            result = eval(expr)
+            result = round(result, 4)
+        except:
+            pass
+
+    if result is None:
+        return "Sorry, I couldn't understand the math operation."
+    return round(result, 4)
+
 
 def extract_alarm_time(message):
 
@@ -215,6 +294,12 @@ def perform_task(tag, query=None):
         query = extract_google_query(query)
         url = f"https://www.google.com/search?q={query}"
         webbrowser.open(url)
+    elif tag == "math_operation":
+        try:
+            result = math_operation(query)
+            speech_queue.put(result)
+        except Exception as e:
+            speech_queue.put(f"Sorry, there was an error with the math operation: {str(e)}")
 
 def listen():
     with sr.Microphone() as source:

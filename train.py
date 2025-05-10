@@ -55,7 +55,7 @@ def create_dataloader(X, y, batch_size=8):
     dataset = ChatDataset(X, y)
     return DataLoader(dataset=dataset, batch_size=batch_size, shuffle=True, num_workers=0)
 
-def save_model(model, input_size, hidden_size, output_size, all_words, tags, filepath='data.pth'):
+def save_model(model, input_size, hidden_size, output_size, all_words, tags, filepath='model.pth'):
     data = {
         "model_state": model.state_dict(),
         "input_size": input_size,
@@ -64,13 +64,15 @@ def save_model(model, input_size, hidden_size, output_size, all_words, tags, fil
         "all_words": all_words,
         "tags": tags
     }
-    
-    FILE = 'model.pth'
-    torch.save(data,FILE)
+    torch.save(data, filepath)
 
-def train_model(model, dataloader, device, criterion, optimizer, num_epochs,
-                input_size, hidden_size, output_size, all_words, tags):
+def train_model(model, dataloader, device, criterion, optimizer, scheduler,
+                num_epochs, input_size, hidden_size, output_size, all_words, tags, model_path):
     for epoch in range(num_epochs):
+        total_loss = 0
+        correct = 0
+        total = 0
+
         for words, labels in dataloader:
             words = words.to(device)
             labels = labels.to(device).long()
@@ -82,24 +84,35 @@ def train_model(model, dataloader, device, criterion, optimizer, num_epochs,
             loss.backward()
             optimizer.step()
 
-        if (epoch+1) % 100 == 0:
-            print(f'Epoch [{epoch+1}/{num_epochs}], loss: {loss.item():.4f}')
-        if (loss.item() < 0.00001):
-            break
-    print(f'Training complete. Final loss: {loss.item():.4f}')
-    save_model(model, input_size, hidden_size, output_size, all_words, tags)
+            total_loss += loss.item()
 
+            _, predicted = torch.max(outputs, dim=1)
+            correct += (predicted == labels).sum().item()
+            total += labels.size(0)
+
+        scheduler.step()
+
+        if (epoch+1) % 100 == 0 or loss.item() < 0.0001:
+            acc = 100 * correct / total
+            print(f'Epoch [{epoch+1}/{num_epochs}], Loss: {total_loss:.4f}, Accuracy: {acc:.2f}%')
+
+        if total_loss < 0.00001:
+            break
+
+    print(f'Training complete. Final loss: {total_loss:.4f}')
+    save_model(model, input_size, hidden_size, output_size, all_words, tags, model_path)
 
 def main():
     intents = load_intents('intents.json')
     X_train, y_train, all_words, tags = preprocess_data(intents)
 
     input_size = len(X_train[0])
-    hidden_size = 8
+    hidden_size = 64
     output_size = len(tags)
     batch_size = 8
     learning_rate = 0.001
     num_epochs = 2000
+    model_path = 'model.pth'
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = NeuralNet(input_size, hidden_size, output_size).to(device)
@@ -108,9 +121,10 @@ def main():
 
     criterion = nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=500, gamma=0.5)
 
-    train_model(model, train_loader, device, criterion, optimizer, num_epochs,
-            input_size, hidden_size, output_size, all_words, tags)
+    train_model(model, train_loader, device, criterion, optimizer, scheduler,
+                num_epochs, input_size, hidden_size, output_size, all_words, tags, model_path)
 
 if __name__ == '__main__':
     main()
