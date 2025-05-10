@@ -14,7 +14,23 @@
                 "Yo",
                 "Greetings",
                 "What's going on?",
-                "How's it going?"
+                "How's it going?",
+                "How are things?",
+                "Good morning",
+                "Good afternoon",
+                "Good evening",
+                "What's new?",
+                "What's happening?",
+                "Sup?",
+                "Howdy, partner",
+                "Hi there",
+                "Hey there",
+                "Long time no see",
+                "How’s life?",
+                "What’s cracking?",
+                "What’s the buzz?",
+                "How are you doing?",
+                "How have you been?"
             ],
             "responses": [
                 "Hey :-)",
@@ -26,7 +42,17 @@
                 "Sir! What can I do for you?",
                 "What's up? How can I help?",
                 "Hello sir! Need anything?",
-                "How’s everything going sir?"
+                "How’s everything going sir?",
+                "Hey there! What’s up?",
+                "Good to see you, how can I assist?",
+                "Hello, hope you're doing well!",
+                "Good day sir! How can I help?",
+                "Good morning sir! How’s your day going?",
+                "Good afternoon! How can I assist you?",
+                "Good evening! Need help with something?",
+                "How are you today?",
+                "It’s great to see you, how’s everything?",
+                "What’s new with you today?"
             ]
         },          
         {
@@ -41,11 +67,23 @@
                 "Farewell", 
                 "Until next time", 
                 "Later", 
-                "I'm leaving now"
+                "I'm leaving now",
+                "I'm off", 
+                "See you later alligator", 
+                "Catch you on the flip side", 
+                "Good night", 
+                "Talk to you later", 
+                "I'm out",
+                "Peace out", 
+                "Adios", 
+                "Take it easy", 
+                "Until we meet again", 
+                "Gotta go", 
+                "I'm heading out"
             ],
             "responses": [
                 "See you later, thanks for visiting sir",
-                "Have a nice days sir",
+                "Have a nice day sir",
                 "Bye! Come back again soon.",
                 "Take care! See you soon sir.",
                 "Until next time sir, stay safe!",
@@ -53,38 +91,250 @@
                 "Catch you later sir! Take care.",
                 "Farewell sir, have a great day ahead!",
                 "See you soon sir, take care!",
-                "Goodbye sir! Don't be a stranger."
-        ]
+                "Goodbye sir! Don't be a stranger.",
+                "Take care and have a great time ahead!",
+                "Goodbye, hope to see you again soon!",
+                "Take it easy, come back whenever you need assistance!",
+                "See you later, come back soon!",
+                "Adios! Hope you have a great day!",
+                "It was a pleasure talking to you. Take care!",
+                "I’ll be here when you return. Goodbye!",
+                "Goodbye! Stay safe and well!",
+                "Peace out! Till next time!"
+            ]
         },
         {
             "tag": "open_calculator",
-            "patterns": ["open calculator", "start calculator", "launch calculator"],
+            "patterns": [
+                "open calculator",
+                "start calculator",
+                "launch calculator",
+                "can you open the calculator",
+                "please open calculator",
+                "calculator open",
+                "run calculator"
+            ],
             "responses": ["Opening calculator..."]
         },
         {
             "tag": "open_browser",
-            "patterns": ["open browser", "launch chrome", "start web browser", "open google"],
+            "patterns": [
+                "open browser",
+                "launch chrome",
+                "start web browser",
+                "open google",
+                "can you open chrome",
+                "start chrome browser",
+                "run browser",
+                "please open the browser"
+            ],
             "responses": ["Opening browser..."]
         },
         {
             "tag": "open_notepad",
-            "patterns": ["open notepad", "start notepad", "launch text editor"],
+            "patterns": [
+                "open notepad",
+                "start notepad",
+                "launch text editor",
+                "write something",
+                "open a text file",
+                "can you open notepad",
+                "please open text editor"
+            ],
             "responses": ["Opening Notepad..."]
         },
         {
             "tag": "tell_time",
-            "patterns": ["what time is it", "tell me the time", "current time", "time now"],
+            "patterns": [
+                "what time is it",
+                "tell me the time",
+                "current time",
+                "time now",
+                "check the time",
+                "do you know the time",
+                "can you tell time"
+            ],
             "responses": ["Checking the current time..."]
         },
         {
             "tag": "open_youtube",
-            "patterns": ["open youtube", "play youtube", "start youtube"],
+            "patterns": [
+                "open youtube",
+                "play youtube",
+                "start youtube",
+                "launch youtube",
+                "can you open youtube",
+                "please play youtube",
+                "run youtube"
+            ],
             "responses": ["Opening YouTube..."]
         },
         {
+            "tag": "open_camera",
+            "patterns": [
+                "open camera",
+                "start camera",
+                "launch camera",
+                "turn on camera",
+                "can you open the camera",
+                "please start the camera"
+            ],
+            "responses": ["Opening camera..."]
+        },
+        {
+            "tag": "open_settings",
+            "patterns": [
+                "open settings",
+                "launch settings",
+                "start settings",
+                "show me settings",
+                "go to settings",
+                "open my settings"
+            ],
+            "responses": ["Opening settings..."]
+        },
+        {
+            "tag": "check_weather",
+            "patterns": [
+                "what's the weather",
+                "check weather",
+                "weather now",
+                "tell me the weather",
+                "current weather",
+                "how's the weather",
+                "is it raining",
+                "weather forecast"
+            ],
+            "responses": ["Checking the weather..."]
+        },
+        {
+            "tag": "set_alarm",
+            "patterns": [
+                "set an alarm for",
+                "wake me up at",
+                "alarm for",
+                "start alarm for",
+                "can you set an alarm for",
+                "please set alarm for",
+                "remind me at",
+                "set an alarm",
+                "set reminder for"
+            ],
+            "responses": [
+                "Setting an alarm for {time}...",
+                "Alarm will be set for {time}...",
+                "Your reminder is set for {time}.",
+                "Okay, I am setting the alarm for {time}.",
+                "Alarm set for {time}!"
+            ]
+        },
+        {
+            "tag": "open_whatsapp",
+            "patterns": [
+                "open whatsapp",
+                "start whatsapp",
+                "launch whatsapp",
+                "can you open whatsapp",
+                "run whatsapp",
+                "open my whatsapp"
+            ],
+            "responses": ["Opening WhatsApp..."]
+        },
+        {
+            "tag": "open_music",
+            "patterns": [
+                "play music",
+                "start music",
+                "open music",
+                "launch music player",
+                "play a song",
+                "can you play music",
+                "run music app"
+            ],
+            "responses": ["Opening music player..."]
+        },
+        {
+            "tag": "open_facebook",
+            "patterns": [
+                "open facebook",
+                "start facebook",
+                "launch facebook app",
+                "can you open facebook",
+                "run facebook",
+                "please open facebook"
+            ],
+            "responses": ["Opening Facebook..."]
+        },
+        {
+            "tag": "open_instagram",
+            "patterns": [
+                "open instagram",
+                "start instagram",
+                "launch instagram",
+                "run instagram",
+                "can you open insta",
+                "show me instagram",
+                "open insta app"
+            ],
+            "responses": ["Opening Instagram..."]
+        },
+        {
+            "tag": "open_maps",
+            "patterns": [
+                "open maps",
+                "launch google maps",
+                "start navigation",
+                "show me the map",
+                "navigate to",
+                "find location",
+                "open gps"
+            ],
+            "responses": ["Opening Maps..."]
+        },
+        {
+            "tag": "check_battery",
+            "patterns": [
+                "what's the battery",
+                "battery level",
+                "check battery",
+                "battery percentage",
+                "how much battery is left",
+                "remaining battery",
+                "battery status"
+            ],
+            "responses": ["Checking battery level..."]
+        },
+        {
             "tag": "search_google",
-            "patterns": ["search google for", "google", "search for", "search", "find on google" , "google search for", "google search"],
-            "responses": ["Searching Google..."]
+            "patterns": [
+                "search google for",
+                "google search for",
+                "google search",
+                "search google",
+                "google for",
+                "search for",
+                "search",
+                "google",
+                "find",
+                "find on google",
+                "can you google",
+                "could you search",
+                "please google",
+                "can you find me",
+                "can you look up",
+                "could you look up",
+                "i need info on",
+                "i want to know about",
+                "tell me about",
+                "what is",
+                "who is",
+                "what are",
+                "how to",
+                "how do i"
+            ],
+            "responses": [
+                "Searching Google..."
+            ]
         },     
         {
             "tag": "thanks",
@@ -114,18 +364,6 @@
             ]
         },
         {
-            "tag": "items",
-            "patterns": [
-            "Which items do you have?",
-            "What kinds of items are there?",
-            "What do you sell?"
-            ],
-            "responses": [
-            "We sell coffee and tea",
-            "We have coffee and tea"
-            ]
-        },
-        {
             "tag": "funny",
             "patterns": [
                 "Tell me a joke!",
@@ -147,8 +385,11 @@
                 "Why did the scarecrow win an award? Because he was outstanding in his field.",
                 "What do you call fake spaghetti? An impasta!",
                 "How do you organize a space party? You planet!",
-                "Why don't eggs tell jokes? They might crack up."
+                "Why don't eggs tell jokes? They might crack up.",
+                "I used to play piano by ear, but now I use my hands.",
+                "I told my computer I needed a break, and it froze.",
+                "Why don’t oysters share their pearls? Because they’re shellfish."
             ]
-        }          
+        }         
     ]
 }

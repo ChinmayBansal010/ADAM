@@ -4,18 +4,26 @@ import speech_recognition as sr
 import torch
 import json
 import os
+import re
 import webbrowser
+from bs4 import BeautifulSoup
+import requests
 import datetime
+import time
+from word2number import w2n
 from model import NeuralNet
 from nltk_utils import bag_of_words, tokenize
 from tkinter import *
-from threading import Thread
+from threading import Thread, Timer
+import subprocess
+import pygame
+import psutil
 from queue import Queue
 
 engine = pyttsx3.init()
 recognizer = sr.Recognizer()
 recognizer.dynamic_energy_threshold = False
-recognizer.energy_threshold = 200
+recognizer.energy_threshold = 100
 
 speech_queue = Queue()
 
@@ -23,7 +31,7 @@ with open('intents.json', 'r') as f:
     intents = json.load(f)
 
 FILE = 'model.pth'
-data = torch.load(FILE)
+data = torch.load(FILE, weights_only=True)
 
 input_size = data['input_size']
 hidden_size = data['hidden_size']
@@ -71,14 +79,89 @@ def get_response(msg):
     else:
         return "I do not understand...", None
 
-def extract_google_query(message):
-    keywords = ["search google for", "google search for" ,"search for", "search google" , "google search", "google for", "google", "find", "search"]
-    msg = message.lower()
-    for kw in keywords:
-        if kw in msg:
-            return msg.split(kw)[-1].strip()
-    return msg
+def extract_alarm_time(message):
 
+    pattern = r"(\d{1,2}):(\d{2})\s*(a\.m\.|p\.m\.|am|pm)?"
+    match = re.search(pattern, message, re.IGNORECASE)
+
+    if match:
+        hour = int(match.group(1))
+        minute = int(match.group(2))
+        ampm = match.group(3) 
+
+        if ampm:
+            if "p.m." in ampm.lower() and hour != 12:
+                hour += 12
+            elif "a.m." in ampm.lower() and hour == 12:
+                hour = 0  
+        return f"{hour}:{minute:02d} {'AM' if 'a' in ampm.lower() else 'PM'}"
+    
+    return None 
+
+def extract_google_query(message):
+    keywords = [
+        r"search google for",
+        r"google search for",
+        r"search for",
+        r"search google",
+        r"google search",
+        r"google for",
+        r"can you google",
+        r"could you search",
+        r"please google",
+        r"find information on",
+        r"look up",
+        r"search",
+        r"google",
+        r"find",
+        r"can you look up",
+        r"could you look up",
+        r"i need info on",
+        r"i want to know about",
+        r"tell me about",
+        r"can you find me",
+        r"what is",
+        r"who is",
+        r"what are",
+        r"how to",
+        r"how do i"
+    ]
+    
+    msg = message.lower()
+    msg = re.sub(r'[^\w\s]', '', msg)
+
+    for kw in keywords:
+        pattern = rf"{kw}\s+(.*)"
+        match = re.search(pattern, msg)
+        if match:
+            return match.group(1).strip()
+    
+    return msg
+# Function to set the alarm
+def set_alarm(time_str):
+    try:
+        alarm_time_obj = datetime.datetime.strptime(time_str, "%I:%M %p").time()
+        now = datetime.datetime.now() 
+        alarm_time = datetime.datetime.combine(now.date(), alarm_time_obj)
+
+        if alarm_time <= now:
+            alarm_time += datetime.timedelta(days=1)
+
+        time_until_alarm = (alarm_time - now).total_seconds()  
+
+        def trigger_alarm():
+            pygame.mixer.init()
+            pygame.mixer.music.load("alarm_sound.mp3")  
+            pygame.mixer.music.play()
+
+            while pygame.mixer.music.get_busy():
+                continue
+    
+        Timer(time_until_alarm, trigger_alarm).start()
+
+    except ValueError:
+        speech_queue.put("Sorry, there was an error setting the alarm. Please provide a valid time format.")
+        
 def perform_task(tag, query=None):
     if tag == "open_calculator":
         os.system("calc")
@@ -91,6 +174,43 @@ def perform_task(tag, query=None):
         speech_queue.put(f"The time is {now}")
     elif tag == "open_youtube":
         webbrowser.open("https://www.youtube.com")
+    elif tag == "open_camera":
+        os.system("start microsoft.windows.camera:")
+    elif tag == "open_settings":
+        os.system("start ms-settings:")
+    elif  tag == "open_whatsapp":
+        webbrowser.open("https://web.whatsapp.com")
+    elif tag == "open_music":
+        subprocess.Popen(["start", "wmplayer"], shell=True)
+    elif tag == "open_instagram":
+        webbrowser.open("https://www.instagram.com")
+    elif tag == "open_facebook":
+        webbrowser.open("https://www.facebook.com")
+    elif tag == "open_maps":
+        webbrowser.open("https://www.google.com/maps")
+    elif tag == "check_battery":
+        battery = psutil.sensors_battery()
+        speech_queue.put(f"The battery percentage is {battery.percent}%")
+    elif tag == "check_weather":
+        url = "https://www.google.com/search?q=weather"
+        headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+        response = requests.get(url, headers=headers)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        try:
+            temp = soup.find('div', class_="BNeawe iBp4i AP7Wnd").text
+            condition = soup.find('div', class_="BNeawe tAd8D AP7Wnd").text
+            weather_info = f"The current temperature is {temp} and the weather condition is {condition}."
+            speech_queue.put(weather_info)
+        except AttributeError:
+            speech_queue.put("Sorry, I couldn't fetch the weather information at the moment.")
+    elif tag == "set_alarm":
+        time_str = extract_alarm_time(query) 
+        print(time_str)
+        if time_str is not None:
+            set_alarm(time_str)
+        else:
+            speech_queue.put("Sorry, I couldn't understand the time you mentioned. Please try again with a valid time format.")    
     elif tag == "search_google":
         query = extract_google_query(query)
         url = f"https://www.google.com/search?q={query}"

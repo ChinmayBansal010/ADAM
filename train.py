@@ -84,7 +84,7 @@ def train_model(model, dataloader, device, criterion, optimizer, num_epochs,
 
         if (epoch+1) % 100 == 0:
             print(f'Epoch [{epoch+1}/{num_epochs}], loss: {loss.item():.4f}')
-        if (loss.item() < 0.01):
+        if (loss.item() < 0.00001):
             break
     print(f'Training complete. Final loss: {loss.item():.4f}')
     save_model(model, input_size, hidden_size, output_size, all_words, tags)
