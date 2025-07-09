@@ -2,3 +2,8 @@
 /tempCodeRunnerFile.py
 /__pycache__
 /.history
+/venv
+.env
+logs/jarvis_stdout.log
+logs/jarvis_stderr.log
+jarvis.log
