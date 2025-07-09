@@ -1,6 +1,5 @@
 import random
 import pyttsx3
-import speech_recognition as sr
 import torch
 import json
 import os
@@ -11,7 +10,6 @@ import requests
 import datetime
 from model import NeuralNet
 from nltk_utils import bag_of_words, tokenize
-from tkinter import *
 from threading import Thread, Timer
 import subprocess
 import pygame
@@ -22,14 +20,15 @@ from comtypes import CLSCTX_ALL
 import screen_brightness_control as sbc
 from queue import Queue
 import ctypes
-
+import sounddevice as sd
+from vosk import Model, KaldiRecognizer
+import winsound
 
 #* CONSTANTS
 
 engine = pyttsx3.init()
-recognizer = sr.Recognizer()
-recognizer.dynamic_energy_threshold = False
-recognizer.energy_threshold = 100
+wake_word = "hello bot"
+vosk_model = Model("model") 
 
 speech_queue = Queue()
 
@@ -250,6 +249,45 @@ def check_weather():
 
 
 #* UTILITY FUNCTIONS
+
+def play_beep():
+    frequency = 1000  # Hz
+    duration = 200    # milliseconds
+    winsound.Beep(frequency, duration)
+
+def wake_word_listener():
+    q = Queue()
+    samplerate = 16000
+
+    def callback(indata, frames, time, status):
+        if status:
+            print("Stream status:", status)
+        q.put(bytes(indata))
+
+    with sd.RawInputStream(samplerate=samplerate, blocksize=8000, dtype='int16',
+                            channels=1, callback=callback):
+        print("Listening for wake word... (say 'Hey Jarvis')")
+
+        rec = KaldiRecognizer(vosk_model, samplerate)
+        while True:
+            try:
+                data = q.get(timeout=5)
+            except:
+                print("No audio received.")
+                continue
+
+            if rec.AcceptWaveform(data):
+                result = json.loads(rec.Result())
+            else:
+                result = json.loads(rec.PartialResult())
+
+            text = result.get("text", "")
+            print("Detected text:", text)
+
+            if wake_word in text.lower():
+                print("Wake word detected!")
+                return
+            
 def speak():
     engine = pyttsx3.init()
     engine.setProperty('rate', 150)
@@ -460,74 +498,135 @@ def perform_task(tag, query=None):
     else:
         speech_queue.put("I'm sorry, I don't understand that command.")
 
-def listen():
-    with sr.Microphone() as source:
-        recognizer.adjust_for_ambient_noise(source, duration=0.5)
-        status_var.set("Listening...")
-        audio = recognizer.listen(source, phrase_time_limit=4)
-    try:
-        command = recognizer.recognize_google(audio)
-        print(f"You said: {command}")
-        return command.lower()
-    except sr.UnknownValueError:
-        return ""
-    except sr.RequestError:
-        return ""
+def listen(timeout=6):
+    q = Queue()
+    samplerate = 16000
+    rec = KaldiRecognizer(vosk_model, samplerate)
+
+    def callback(indata, frames, time, status):
+        if status:
+            print(status)
+        q.put(bytes(indata))
+
+    with sd.RawInputStream(samplerate=samplerate, blocksize=8000, dtype='int16',
+                           channels=1, callback=callback):
+        print("Listening...")
+        start_time = datetime.datetime.now()
+        full_text = ""
+
+        while (datetime.datetime.now() - start_time).total_seconds() < timeout:
+            try:
+                data = q.get(timeout=1)
+            except:
+                continue
+
+            if rec.AcceptWaveform(data):
+                result = json.loads(rec.Result())
+                text = result.get("text", "")
+                if text:
+                    full_text += " " + text
+            else:
+                partial = json.loads(rec.PartialResult())
+                print("Partial:", partial.get("partial", ""))
+
+        final = rec.FinalResult()
+        final_text = json.loads(final).get("text", "")
+        full_text += " " + final_text
+        print(f"You said: {full_text.strip()}")
+        return full_text.strip().lower()
+
+def recognize_command_vosk(timeout=6):
+    q = Queue()
+    samplerate = 16000
+    rec = KaldiRecognizer(vosk_model, samplerate)
+
+    def callback(indata, frames, time, status):
+        q.put(bytes(indata))
+
+    with sd.RawInputStream(samplerate=samplerate, blocksize=8000, dtype='int16',
+                           channels=1, callback=callback):
+        print("Listening for command...")
+        start_time = datetime.datetime.now()
+        full_text = ""
+        while (datetime.datetime.now() - start_time).total_seconds() < timeout:
+            try:
+                data = q.get(timeout=1)
+            except:
+                continue
+
+            if rec.AcceptWaveform(data):
+                result = json.loads(rec.Result())
+                text = result.get("text", "")
+                full_text += " " + text
+            else:
+                partial = json.loads(rec.PartialResult())
+                print("Partial:", partial.get("partial", ""))
+
+        final = rec.FinalResult()
+        final_text = json.loads(final).get("text", "")
+        full_text += " " + final_text
+        print("Final recognized command:", full_text.strip())
+        return full_text.strip()
+    
+    
+def recognize_command_vosk(timeout=6):
+    q = Queue()
+    samplerate = 16000
+    rec = KaldiRecognizer(vosk_model, samplerate)
+
+    def callback(indata, frames, time, status):
+        q.put(bytes(indata))
+
+    with sd.RawInputStream(samplerate=samplerate, blocksize=8000, dtype='int16',
+                           channels=1, callback=callback):
+        print("Listening for command...")
+        start_time = datetime.datetime.now()
+        full_text = ""
+
+        while (datetime.datetime.now() - start_time).total_seconds() < timeout:
+            try:
+                data = q.get(timeout=1)
+            except:
+                continue
+
+            if rec.AcceptWaveform(data):
+                result = json.loads(rec.Result())
+                text = result.get("text", "")
+                if text:
+                    full_text += " " + text
+            else:
+                partial = json.loads(rec.PartialResult())
+                print("Partial:", partial.get("partial", ""))
+
+        final = rec.FinalResult()
+        final_text = json.loads(final).get("text", "")
+        full_text += " " + final_text
+        print("Final recognized command:", full_text.strip())
+        return full_text.strip()
+
 
 def handle_input():
     global stop_listening
-    while True:
-        if stop_listening:
-            break
-        message = listen()
+    while not stop_listening:
+        wake_word_listener()
+        play_beep()
 
-        if message == '':
+        message = recognize_command_vosk(timeout=6)
+        if not message:
+            print("No command detected.")
             continue
-        if message == 'quit':
+
+        if "goodbye jarvis" in message:
+            speech_queue.put("Goodbye!")
+            stop_listening = True
             break
+
         response, tag = get_response(message)
         speech_queue.put(response)
         if tag:
             perform_task(tag, message)
 
-def start_stop():
-    global stop_listening
-    stop_listening = not stop_listening
-    if not stop_listening:
-        start_btn.config(text="Stop Listening", bg="#ff6666")
-        status_var.set("Listening...")
-        animate_status()
-        Thread(target=handle_input, daemon=True).start()
-    else:
-        status_var.set("Stopped.")
-        start_btn.config(text="Start Listening", bg="#4CAF50")
 
-
-def animate_status():
-    if not stop_listening:
-        current = status_label.cget("fg")
-        new_color = "#0066cc" if current == "#003366" else "#003366"
-        status_label.config(fg=new_color)
-        root.after(500, animate_status)
-
-# Enhanced GUI setup
-root = Tk()
-root.title("Voice Assistant Chatbot")
-root.geometry("450x300")
-root.configure(bg="#e6f2ff")
-
-label = Label(root, text="Voice Assistant", font=("Helvetica", 24, "bold"), bg="#e6f2ff", fg="#003366")
-label.pack(pady=20)
-
-status_var = StringVar()
-status_var.set("Click Start to begin...")
-
-status_label = Label(root, textvariable=status_var, font=("Helvetica", 14), bg="#e6f2ff", fg="#003366")
-status_label.pack(pady=10)
-
-start_btn = Button(root, text="Start Listening", font=("Helvetica", 14, "bold"),
-                   command=start_stop, bg="#4CAF50", fg="white", padx=20, pady=10)
-start_btn.pack(pady=30)
 
 Thread(target=speak, daemon=True).start()
-root.mainloop()
+handle_input()
