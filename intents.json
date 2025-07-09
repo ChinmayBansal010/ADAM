@@ -107,6 +107,7 @@
             "tag": "open_calculator",
             "patterns": [
                 "open calculator",
+                "open the calculator",
                 "start calculator",
                 "launch calculator",
                 "can you open the calculator",
@@ -292,6 +293,293 @@
             "responses": ["Opening Maps..."]
         },
         {
+            "tag": "open_email",
+            "patterns": [
+                "open email",
+                "check email",
+                "launch email app",
+                "start email",
+                "open gmail",
+                "can you check my mail",
+                "show me my emails"
+            ],
+            "responses": ["Opening email..."]
+        },
+        {
+            "tag": "open_gallery",
+            "patterns": [
+                "open gallery",
+                "show me my photos",
+                "open pictures",
+                "start gallery app",
+                "launch photos",
+                "can you open gallery"
+            ],
+            "responses": ["Opening gallery..."]
+        },
+        {
+            "tag": "open_file_explorer",
+            "patterns": [
+                "open file explorer",
+                "show my files",
+                "open folders",
+                "launch file manager",
+                "can you open file explorer",
+                "open my documents",
+                "open computer",
+                "explore files",
+                "navigate to my files",
+                "open my PC",
+                "open file window",
+                "access files",
+                "view folders",
+                "see my documents",
+                "manage files"
+            ],
+            "responses": ["Opening File Explorer..."]
+        },
+        {
+            "tag": "open_cmd",
+            "patterns": [
+                "open command prompt",
+                "start cmd",
+                "open cmd",
+                "launch command prompt",
+                "run cmd",
+                "open terminal",
+                "open windows terminal",
+                "start command line",
+                "launch cmd window",
+                "open dos prompt",
+                "cmd open"
+            ],
+            "responses": ["Opening Command Prompt..."]
+        },
+        {
+            "tag": "open_powershell",
+            "patterns": [
+                "open powershell",
+                "start powershell",
+                "launch powershell",
+                "run powershell",
+                "open windows powershell",
+                "please open powershell",
+                "can you start powershell",
+                "powershell open",
+                "initiate powershell",
+                "access powershell"
+            ],
+            "responses": ["Opening PowerShell..."]
+        },
+        {
+            "tag": "open_word",
+            "patterns": [
+                "open word",
+                "start word",
+                "launch microsoft word",
+                "run ms word",
+                "open microsoft word",
+                "open word app",
+                "write a document",
+                "open doc editor",
+                "can you open word",
+                "please open ms word",
+                "word open"
+            ],
+            "responses": ["Opening Microsoft Word..."]
+        },
+        {
+            "tag": "open_excel",
+            "patterns": [
+                "open excel",
+                "start excel",
+                "launch microsoft excel",
+                "run ms excel",
+                "open spreadsheet",
+                "excel open",
+                "open microsoft excel",
+                "please open excel",
+                "can you start excel",
+                "show me excel"
+            ],
+            "responses": ["Opening Microsoft Excel..."]
+        },
+        {
+            "tag": "open_powerpoint",
+            "patterns": [
+                "open powerpoint",
+                "start powerpoint",
+                "launch microsoft powerpoint",
+                "run ms powerpoint",
+                "create a presentation",
+                "ppt open",
+                "please open powerpoint",
+                "open slides app",
+                "powerpoint open",
+                "start my presentation"
+            ],
+            "responses": ["Opening Microsoft PowerPoint..."]
+        },
+        {
+            "tag": "open_access",
+            "patterns": [
+                "open access",
+                "start access",
+                "launch microsoft access",
+                "open ms access",
+                "access database",
+                "open database software",
+                "run access",
+                "please open access",
+                "open access app",
+                "open access tool"
+            ],
+            "responses": ["Opening Microsoft Access..."]
+        },
+        {
+            "tag": "open_outlook",
+            "patterns": [
+                "open outlook",
+                "start outlook",
+                "launch microsoft outlook",
+                "run ms outlook",
+                "open email app",
+                "check my outlook",
+                "open email client",
+                "please open outlook",
+                "access outlook",
+                "open my inbox"
+            ],
+            "responses": ["Opening Microsoft Outlook..."]
+        },
+        {
+            "tag": "open_teams",
+            "patterns": [
+                "open teams",
+                "start microsoft teams",
+                "launch teams",
+                "open ms teams",
+                "run teams",
+                "open online meeting app",
+                "start teams app",
+                "teams open",
+                "please open teams",
+                "connect on teams"
+            ],
+            "responses": ["Opening Microsoft Teams..."]
+        },
+        {
+            "tag": "open_edge",
+            "patterns": [
+                "open edge",
+                "start microsoft edge",
+                "launch edge browser",
+                "open ms edge",
+                "run edge",
+                "open edge browser",
+                "browse with edge",
+                "edge open",
+                "please open edge",
+                "launch edge"
+            ],
+            "responses": ["Opening Microsoft Edge..."]
+        },
+        {
+            "tag": "open_teams",
+            "patterns": [
+                "open teams",
+                "start microsoft teams",
+                "launch teams",
+                "open ms teams",
+                "run teams",
+                "open online meeting app",
+                "start teams app",
+                "teams open",
+                "please open teams",
+                "connect on teams",
+                "open meeting app",
+                "start office teams",
+                "join on teams"
+            ],
+            "responses": ["Opening Microsoft Teams..."]
+        },
+        {
+            "tag": "open_edge",
+            "patterns": [
+                "open edge",
+                "start microsoft edge",
+                "launch edge browser",
+                "open ms edge",
+                "run edge",
+                "open edge browser",
+                "browse with edge",
+                "edge open",
+                "please open edge",
+                "launch edge",
+                "start browsing with edge",
+                "open internet on edge",
+                "start edge browser"
+            ],
+            "responses": ["Opening Microsoft Edge..."]
+        },
+        {
+            "tag": "open_chrome",
+            "patterns": [
+                "open chrome",
+                "start chrome",
+                "launch chrome browser",
+                "run chrome",
+                "open google chrome",
+                "start google browser",
+                "open chrome browser",
+                "please open chrome",
+                "launch google",
+                "browse with chrome",
+                "open internet with chrome",
+                "open google on chrome",
+                "chrome open"
+            ],
+            "responses": ["Opening Google Chrome..."]
+        },
+        {
+            "tag": "open_brave",
+            "patterns": [
+                "open brave",
+                "start brave",
+                "launch brave browser",
+                "run brave",
+                "open brave browser",
+                "please open brave",
+                "start private browser",
+                "browse with brave",
+                "open secure browser",
+                "start brave app",
+                "brave open",
+                "open internet on brave",
+                "use brave for browsing"
+            ],
+            "responses": ["Opening Brave Browser..."]
+        },
+        {
+            "tag": "open_vscode",
+            "patterns": [
+                "open vscode",
+                "start vscode",
+                "launch visual studio code",
+                "run vscode",
+                "open code editor",
+                "open visual studio code",
+                "please open vscode",
+                "start code app",
+                "launch vs code",
+                "open coding app",
+                "code editor open",
+                "launch editor",
+                "vscode open"
+            ],
+            "responses": ["Opening Visual Studio Code..."]
+        },
+        {
             "tag": "check_battery",
             "patterns": [
                 "what's the battery",
@@ -303,6 +591,152 @@
                 "battery status"
             ],
             "responses": ["Checking battery level..."]
+        },
+        {
+        "tag": "open_task_manager",
+        "patterns": [
+            "open task manager",
+            "start task manager",
+            "launch task manager",
+            "open system monitor",
+            "open processes",
+            "show running tasks",
+            "can you open task manager",
+            "task manager open",
+            "run task manager",
+            "see background apps",
+            "view cpu usage",
+            "open task window",
+            "monitor system performance",
+            "check running programs",
+            "check memory usage"
+        ],
+        "responses": ["Opening Task Manager..."]
+        },
+        {
+            "tag": "open_twitter",
+            "patterns": [
+                "open twitter",
+                "start twitter",
+                "launch twitter",
+                "go to twitter",
+                "open my twitter",
+                "check twitter",
+                "twitter open",
+                "run twitter"
+            ],
+            "responses": [
+                "Opening Twitter..."
+            ]
+        },
+        {
+            "tag": "open_reddit",
+            "patterns": [
+                "open reddit",
+                "start reddit",
+                "launch reddit",
+                "go to reddit",
+                "open my reddit",
+                "check reddit",
+                "reddit open",
+                "run reddit"
+            ],
+            "responses": [
+                "Opening Reddit..."
+            ]
+        },
+        {
+            "tag": "open_amazon",
+            "patterns": [
+                "open amazon",
+                "start amazon",
+                "launch amazon",
+                "shop on amazon",
+                "open amazon site",
+                "amazon open",
+                "browse amazon",
+                "go to amazon"
+            ],
+            "responses": [
+                "Opening Amazon..."
+            ]
+        },
+        {
+            "tag": "open_linkedin",
+            "patterns": [
+                "open linkedin",
+                "start linkedin",
+                "launch linkedin",
+                "go to linkedin",
+                "open my linkedin",
+                "check linkedin",
+                "linkedin open",
+                "run linkedin"
+            ],
+            "responses": [
+                "Opening LinkedIn..."
+            ]
+        },
+        {
+            "tag": "open_calendar",
+            "patterns": [
+                "open calendar",
+                "start calendar",
+                "launch calendar",
+                "google calendar open",
+                "open my calendar",
+                "show calendar",
+                "calendar open",
+                "view calendar"
+            ],
+            "responses": [
+                "Opening Google Calendar..."
+            ]
+        },
+        {
+            "tag": "open_drive",
+            "patterns": [
+                "open drive",
+                "start google drive",
+                "launch drive",
+                "open my drive",
+                "show google drive",
+                "access google drive",
+                "drive open",
+                "check google drive"
+            ],
+            "responses": [
+                "Opening Google Drive..."
+            ]
+        },
+        {
+            "tag": "open_onenote",
+            "patterns": [
+                "open onenote",
+                "start onenote",
+                "launch onenote",
+                "onenote open",
+                "run onenote",
+                "open my onenote",
+                "open notes app",
+                "access onenote"
+            ],
+            "responses": [
+                "Opening OneNote..."
+            ]
+        },
+        {
+            "tag": "check_date",
+            "patterns": [
+                "what's the date",
+                "tell me the date",
+                "current date",
+                "today's date",
+                "what day is it",
+                "date now",
+                "can you tell me the date"
+            ],
+            "responses": ["Checking the date..."]
         },
         {
             "tag": "search_google",
@@ -337,6 +771,19 @@
             ]
         },
         {
+            "tag": "take_screenshot",
+            "patterns": [
+                "take a screenshot",
+                "capture screen",
+                "screenshot now",
+                "please take a screenshot",
+                "can you capture the screen",
+                "snap screen",
+                "grab screenshot"
+            ],
+            "responses": ["Taking a screenshot..."]
+        },
+        {
             "tag": "math_operation",
             "patterns": [
                 "what is 2.5 plus 3.1",
@@ -361,6 +808,153 @@
                 "divide 12.5 by 0.5"
             ],
             "responses": ["Here's the result:"]
+        },
+        {
+            "tag": "mute_volume",
+            "patterns": [
+                "mute",
+                "mute the sound",
+                "turn off volume",
+                "mute speaker",
+                "mute my device",
+                "can you mute"
+            ],
+            "responses": ["Muting the volume..."]
+        },
+        {
+            "tag": "unmute_volume",
+            "patterns": [
+                "unmute",
+                "unmute the volume",
+                "turn sound back on",
+                "enable sound",
+                "can you unmute",
+                "please unmute",
+                "bring the sound back",
+                "switch sound on"
+            ],
+            "responses": ["Unmuting volume..."]
+        },
+        {
+            "tag": "volume_up",
+            "patterns": [
+                "increase volume",
+                "raise the volume",
+                "turn up the volume",
+                "make it louder",
+                "sound up",
+                "volume higher",
+                "volume up",
+                "can you increase the volume",
+                "please raise volume"
+            ],
+            "responses": ["Increasing volume..."]
+        },
+        {
+            "tag": "volume_down",
+            "patterns": [
+                "decrease volume",
+                "turn down the volume",
+                "make it quieter",
+                "lower the volume",
+                "volume down",
+                "reduce sound",
+                "can you decrease the volume",
+                "please lower the volume"
+            ],
+            "responses": ["Decreasing volume..."]
+        },
+        {
+            "tag": "increase_brightness",
+            "patterns": [
+                "increase brightness",
+                "make screen brighter",
+                "raise brightness",
+                "turn up brightness",
+                "more brightness",
+                "brighter screen",
+                "can you increase the brightness",
+                "please brighten the screen"
+            ],
+            "responses": ["Increasing brightness..."]
+        },
+        {
+            "tag": "decrease_brightness",
+            "patterns": [
+                "decrease brightness",
+                "lower screen brightness",
+                "dim the screen",
+                "reduce brightness",
+                "make screen dimmer",
+                "turn down brightness",
+                "less brightness",
+                "can you dim the screen"
+            ],
+            "responses": ["Decreasing screen brightness..."]
+        },
+        {
+            "tag": "lock_screen",
+            "patterns": [
+                "lock screen",
+                "lock my pc",
+                "lock this computer",
+                "please lock screen",
+                "secure screen",
+                "can you lock my screen",
+                "lock workstation",
+                "lock now"
+            ],
+            "responses": [
+                "Locking screen..."
+            ]
+        },
+        {
+            "tag": "shutdown",
+            "patterns": [
+                "shut down",
+                "turn off pc",
+                "power off",
+                "shutdown computer",
+                "please shut down",
+                "can you shut down",
+                "shut the system",
+                "turn off my system"
+            ],
+            "responses": [
+                "Shutting down system..."
+            ]
+        },
+        {
+            "tag": "restart",
+            "patterns": [
+                "restart",
+                "reboot",
+                "restart system",
+                "restart my pc",
+                "reboot the computer",
+                "please restart",
+                "restart machine",
+                "can you restart"
+            ],
+            "responses": [
+                "Restarting system..."
+            ]
+        },
+        {
+            "tag": "logout_user",
+            "patterns": [
+                "log out",
+                "sign out",
+                "log me out",
+                "log out of this computer",
+                "please log out",
+                "logout my account",
+                "sign off",
+                "end session"
+            ],
+            "responses": [
+                "Logging out..."
+            ]
         },     
         {
             "tag": "thanks",
