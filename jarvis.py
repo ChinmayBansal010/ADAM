@@ -25,10 +25,10 @@ from task import perform_task
 import nltk
 
 # === Set nltk data path ===
-try:
-    nltk.download('punkt_tab')
-except Exception:
-    pass
+# try:
+#     nltk.download('punkt_tab')
+# except Exception:
+#     pass
 nltk.data.path.append("C:/Users/chinm/AppData/Roaming/nltk_data")
 # === Load environment ===
 load_dotenv()

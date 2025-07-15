@@ -134,41 +134,78 @@ def extract_google_query(message):
 
 def perform_task(tag, query=None, speech_queue=None):
     try:
-        if tag == "open_calculator": os.system("calc")
-        elif tag == "open_browser": webbrowser.open("https://www.google.com")
-        elif tag == "open_notepad": os.system("notepad")
-        elif tag == "tell_time": speech_queue.put(datetime.datetime.now().strftime("The time is %I:%M %p"))
-        elif tag == "open_youtube": webbrowser.open("https://www.youtube.com")
-        elif tag == "open_camera": os.system("start microsoft.windows.camera:")
-        elif tag == "open_settings": os.system("start ms-settings:")
-        elif tag == "open_whatsapp": webbrowser.open("https://web.whatsapp.com")
-        elif tag == "open_music": subprocess.Popen(["start", "wmplayer"], shell=True)
-        elif tag == "open_instagram": webbrowser.open("https://www.instagram.com")
-        elif tag == "open_facebook": webbrowser.open("https://www.facebook.com")
-        elif tag == "open_maps": webbrowser.open("https://www.google.com/maps")
-        elif tag == "open_email": webbrowser.open("https://www.gmail.com")
-        elif tag == "open_twitter": webbrowser.open("https://www.twitter.com")
-        elif tag == "open_reddit": webbrowser.open("https://www.reddit.com")
-        elif tag == "open_amazon": webbrowser.open("https://www.amazon.in")
-        elif tag == "open_linkedin": webbrowser.open("https://www.linkedin.com")
-        elif tag == "open_gallery": os.system("start ms-photos:")
-        elif tag == "open_file_explorer": os.system("explorer")
-        elif tag == "open_cmd": os.system("start cmd")
-        elif tag == "open_powershell": os.system("start powershell")
-        elif tag == "open_word": os.system("start winword")
-        elif tag == "open_powerpoint": os.system("start powerpnt")
-        elif tag == "open_excel": os.system("start excel")
-        elif tag == "open_access": os.system("start access")
-        elif tag == "open_outlook": os.system("start outlook")
-        elif tag == "open_teams": os.system("start teams")
-        elif tag == "open_edge": os.system("start msedge")
-        elif tag == "open_chrome": os.system("start chrome")
-        elif tag == "open_brave": os.system("start brave")
-        elif tag == "open_vscode": os.system("start code")
-        elif tag == "open_task_manager": os.system("start taskmgr")
-        elif tag == "open_calendar": webbrowser.open("https://calendar.google.com")
-        elif tag == "open_drive": webbrowser.open("https://drive.google.com")
-        elif tag == "open_onenote": os.system("start onenote")
+        print(f"Tag received: {tag}")
+
+        if tag == "open_calculator":
+            subprocess.Popen("calc")
+        elif tag == "open_browser":
+            webbrowser.open("https://www.google.com")
+        elif tag == "open_notepad":
+            subprocess.Popen("notepad")
+        elif tag == "tell_time":
+            speech_queue.put(datetime.datetime.now().strftime("The time is %I:%M %p"))
+        elif tag == "open_youtube":
+            webbrowser.open("https://www.youtube.com")
+        elif tag == "open_camera":
+            subprocess.Popen(["start", "microsoft.windows.camera:"], shell=True)
+        elif tag == "open_settings":
+            subprocess.Popen(["start", "ms-settings:"], shell=True)
+        elif tag == "open_whatsapp":
+            webbrowser.open("https://web.whatsapp.com")
+        elif tag == "open_music":
+            subprocess.Popen(["start", "wmplayer"], shell=True)
+        elif tag == "open_instagram":
+            webbrowser.open("https://www.instagram.com")
+        elif tag == "open_facebook":
+            webbrowser.open("https://www.facebook.com")
+        elif tag == "open_maps":
+            webbrowser.open("https://www.google.com/maps")
+        elif tag == "open_email":
+            webbrowser.open("https://www.gmail.com")
+        elif tag == "open_twitter":
+            webbrowser.open("https://www.twitter.com")
+        elif tag == "open_reddit":
+            webbrowser.open("https://www.reddit.com")
+        elif tag == "open_amazon":
+            webbrowser.open("https://www.amazon.in")
+        elif tag == "open_linkedin":
+            webbrowser.open("https://www.linkedin.com")
+        elif tag == "open_gallery":
+            subprocess.Popen(["start", "ms-photos:"], shell=True)
+        elif tag == "open_file_explorer":
+            subprocess.Popen("explorer")
+        elif tag == "open_cmd":
+            subprocess.Popen("cmd")
+        elif tag == "open_powershell":
+            subprocess.Popen("powershell")
+        elif tag == "open_word":
+            subprocess.Popen(["start", "winword"], shell=True)
+        elif tag == "open_powerpoint":
+            subprocess.Popen(["start", "powerpnt"], shell=True)
+        elif tag == "open_excel":
+            subprocess.Popen(["start", "excel"], shell=True)
+        elif tag == "open_access":
+            subprocess.Popen(["start", "access"], shell=True)
+        elif tag == "open_outlook":
+            subprocess.Popen(["start", "outlook"], shell=True)
+        elif tag == "open_teams":
+            subprocess.Popen(["start", "teams"], shell=True)
+        elif tag == "open_edge":
+            subprocess.Popen(["start", "msedge"], shell=True)
+        elif tag == "open_chrome":
+            subprocess.Popen(["start", "chrome"], shell=True)
+        elif tag == "open_brave":
+            subprocess.Popen(["start", "brave"], shell=True)
+        elif tag == "open_vscode":
+            subprocess.Popen(["start", "code"], shell=True)
+        elif tag == "open_task_manager":
+            subprocess.Popen(["start", "taskmgr"], shell=True)
+        elif tag == "open_calendar":
+            webbrowser.open("https://calendar.google.com")
+        elif tag == "open_drive":
+            webbrowser.open("https://drive.google.com")
+        elif tag == "open_onenote":
+            subprocess.Popen(["start", "onenote"], shell=True)
         elif tag == "check_battery":
             battery = psutil.sensors_battery()
             speech_queue.put(f"The battery percentage is {battery.percent}%")
@@ -200,16 +237,22 @@ def perform_task(tag, query=None, speech_queue=None):
                 speech_queue.put("Volume is already unmuted.")
             else:
                 unmute_volume()
-        elif tag == "volume_up": pyautogui.press("volumeup")
-        elif tag == "volume_down": pyautogui.press("volumedown")
+        elif tag == "volume_up":
+            pyautogui.press("volumeup")
+        elif tag == "volume_down":
+            pyautogui.press("volumedown")
         elif tag == "increase_brightness":
             sbc.set_brightness(min(sbc.get_brightness()[0] + 10, 100))
         elif tag == "decrease_brightness":
             sbc.set_brightness(max(sbc.get_brightness()[0] - 10, 0))
-        elif tag == "lock_screen": ctypes.windll.user32.LockWorkStation()
-        elif tag == "shutdown": os.system("shutdown /s /t 1")
-        elif tag == "restart": os.system("shutdown /r /t 1")
-        elif tag == "logout_user": os.system("shutdown -l")
+        elif tag == "lock_screen":
+            ctypes.windll.user32.LockWorkStation()
+        elif tag == "shutdown":
+            subprocess.Popen(["shutdown", "/s", "/t", "1"])
+        elif tag == "restart":
+            subprocess.Popen(["shutdown", "/r", "/t", "1"])
+        elif tag == "logout_user":
+            subprocess.Popen(["shutdown", "-l"])
         else:
             speech_queue.put("I'm sorry, I don't understand that command.")
     except Exception as e:
