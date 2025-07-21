@@ -8,7 +8,7 @@ import ctypes
 import psutil
 import pyautogui
 import requests
-
+from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 from threading import Timer
 from pydub import AudioSegment
@@ -16,9 +16,11 @@ from pydub.playback import play
 from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 from comtypes import CLSCTX_ALL
 import screen_brightness_control as sbc
+import google.generativeai as genai
 
-from nltk_utils import bag_of_words, tokenize
-from model import NeuralNet
+load_dotenv()
+GEMINI_ACCESS_KEY = os.getenv("GEMINI_ACCESS_KEY")
+
 
 devices = AudioUtilities.GetSpeakers()
 interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
@@ -131,6 +133,41 @@ def extract_google_query(message):
         if match:
             return match.group(1).strip()
     return msg
+
+def diagnose_symptoms(symptoms):
+    try:
+        genai.configure(api_key=GEMINI_ACCESS_KEY)
+        model = genai.GenerativeModel("gemini-1.5-flash")
+
+        prompt = (
+            f"You are a trusted virtual medical assistant. A user reports the following symptoms: {symptoms}.\n"
+            "Respond in a short and clear format. Use concise bullet points for each of the following:\n"
+            "- Possible disease(s) (max 2)\n"
+            "- 1-2 Precautions\n"
+            "- 1-2 Over-the-counter treatment options\n"
+            "- When to consult a doctor (one sentence)\n"
+            "- A one-line disclaimer that this is not a substitute for medical advice."
+        )
+
+        response = model.generate_content(prompt)
+        clean_text = clean_response(response.text)
+        return clean_text
+
+    except Exception as e:
+        return f"Failed to diagnose symptoms: {str(e)}"
+    
+
+def clean_response(text):
+    text = re.sub(r"[#*`~•→⇒➤▶️▪️✅➔➥➽➧➠➤➢➣➞➟➡️➩➫➬➭➯➲➳➵➸➺➻➼➽➾]", "", text)
+    text = re.sub(r"^\s*[-–—]+\s*", "", text, flags=re.MULTILINE)
+    text = re.sub(r"\s{2,}", " ", text)
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    text = re.sub(r"\s+([.,!?;:])", r"\1", text)
+    text = text.replace("“", '"').replace("”", '"').replace("‘", "'").replace("’", "'")
+    text = re.sub(r"[^\x00-\x7F]+", " ", text)
+
+    # Final trim
+    return text.strip()
 
 def perform_task(tag, query=None, speech_queue=None):
     try:
@@ -253,6 +290,9 @@ def perform_task(tag, query=None, speech_queue=None):
             subprocess.Popen(["shutdown", "/r", "/t", "1"])
         elif tag == "logout_user":
             subprocess.Popen(["shutdown", "-l"])
+        elif tag == "diagnose_symptoms":
+            result = diagnose_symptoms(query)
+            speech_queue.put(result)
         else:
             speech_queue.put("I'm sorry, I don't understand that command.")
     except Exception as e:
