@@ -485,44 +485,6 @@
             "responses": ["Opening Microsoft Edge..."]
         },
         {
-            "tag": "open_teams",
-            "patterns": [
-                "open teams",
-                "start microsoft teams",
-                "launch teams",
-                "open ms teams",
-                "run teams",
-                "open online meeting app",
-                "start teams app",
-                "teams open",
-                "please open teams",
-                "connect on teams",
-                "open meeting app",
-                "start office teams",
-                "join on teams"
-            ],
-            "responses": ["Opening Microsoft Teams..."]
-        },
-        {
-            "tag": "open_edge",
-            "patterns": [
-                "open edge",
-                "start microsoft edge",
-                "launch edge browser",
-                "open ms edge",
-                "run edge",
-                "open edge browser",
-                "browse with edge",
-                "edge open",
-                "please open edge",
-                "launch edge",
-                "start browsing with edge",
-                "open internet on edge",
-                "start edge browser"
-            ],
-            "responses": ["Opening Microsoft Edge..."]
-        },
-        {
             "tag": "open_chrome",
             "patterns": [
                 "open chrome",
