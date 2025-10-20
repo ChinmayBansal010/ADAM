@@ -314,7 +314,7 @@ def perform_task(tag, query=None, speech_queue=None):
         elif tag == "tell_time":
             speech_queue.put(datetime.datetime.now().strftime("The time is %I:%M %p"))
         elif tag == "open_youtube":
-            webbrowser.open("https://www.youtube.com") # Corrected URL
+            webbrowser.open("https://www.youtube.com")
             speech_queue.put("Opening YouTube.")
         elif tag == "open_camera":
             run_windows_command(["start", "microsoft.windows.camera:"], speech_queue, "Opening camera.", "Failed to open camera")
@@ -332,7 +332,7 @@ def perform_task(tag, query=None, speech_queue=None):
             webbrowser.open("https://www.facebook.com")
             speech_queue.put("Opening Facebook.")
         elif tag == "open_maps":
-            webbrowser.open("https://www.google.com/maps") # Corrected URL
+            webbrowser.open("https://www.google.com/maps")
             speech_queue.put("Opening Google Maps.")
         elif tag == "open_email":
             webbrowser.open("https://www.gmail.com")
